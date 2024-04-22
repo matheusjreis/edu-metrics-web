@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { User } from 'src/app/interfaces/auth';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 import { passwordMatchValidator } from 'src/app/shared/password-match.directive';
 
 @Component({
@@ -12,11 +13,11 @@ import { passwordMatchValidator } from 'src/app/shared/password-match.directive'
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-
   registerForm = this.fb.group({
-    fullName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?: [a-zA-Z]+)*$/)]],
+    name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(?: [a-zA-Z]+)*$/)]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
+    registrationCollegeCode: ['', Validators.required],
     confirmPassword: ['', Validators.required]
   }, {
     validators: passwordMatchValidator
@@ -25,12 +26,17 @@ export class RegisterComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private userService: UserService,
     private messageService: MessageService,
     private router: Router
   ) { }
 
-  get fullName() {
-    return this.registerForm.controls['fullName'];
+  get name() {
+    return this.registerForm.controls['name'];
+  }
+
+  get registrationCollegeCode() {
+    return this.registerForm.controls['registrationCollegeCode'];
   }
 
   get email() {
@@ -48,7 +54,7 @@ export class RegisterComponent {
   submitDetails() {
     const postData = { ...this.registerForm.value };
     delete postData.confirmPassword;
-    this.authService.registerUser(postData as User).subscribe(
+    this.userService.registerUser(postData as User).subscribe(
       response => {
         console.log(response);
         this.messageService.add({ severity: 'success', summary: 'Successo', detail: 'Registro realizado com sucesso!' });

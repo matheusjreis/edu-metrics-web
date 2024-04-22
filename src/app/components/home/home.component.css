@@ -1,0 +1,28 @@
+body {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.listing {
+    border-radius: 30px;
+    padding-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .listing-heading-item {
+    text-align: center;
+    width: 340px;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #3b82f6;
+    color: #ffff;
+  }
+
+  .listing-heading-item:hover{
+    cursor: pointer !important;
+  }
+
+
+  

@@ -36,35 +36,18 @@ export class LoginComponent {
       userPassword: password
    });
 
-    // let teste = this.authService.canUserAcessPortal(userCredentials).subscribe(
-    //   response = > {}
-    // );
-
     this.authService.canUserAcessPortal(userCredentials).subscribe(
       response => {
-        console.log(response);
+        this.msgService.add({ severity: 'success', summary: 'Successo', detail: 'Usuário autenticado!' });
+        this.router.navigate(['home']);
       },
       error => {
-        console.log('erro', error.error);
-        // const errorResponse: EduMetricsApiReponse = error.message;
         this.msgService.add({ severity: 'error', summary: 'Erro', detail: error.error.message });
       }
-
     )
-    // console.log(teste);
-    // this.authService.getUserByEmail(email as string).subscribe(
-    //   response => {
-    //     if (response.length > 0 && response[0].password === password) {
-    //       sessionStorage.setItem('email', email as string);
-    //       this.router.navigate(['/home']);
-    //     } else {
-    //       this.msgService.add({ severity: 'error', summary: 'Erro', detail: 'Email e/ou senha estão incorretos' });
-    //     }
-    //   },
-    //   error => {
-    //     this.msgService.add({ severity: 'error', summary: 'Erro', detail: 'Ops! Alguma coisa deu errado! ' });
-    //   }
-
-    // )
   }
+
+  // setAuthenticatedUserData(){
+
+  // }
 }
