@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserCredentials } from 'src/app/interfaces/auth';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private userService: UserService,
     private router: Router,
     private msgService: MessageService
   ) { }
@@ -36,9 +38,10 @@ export class LoginComponent {
       userPassword: password
    });
 
-    this.authService.canUserAcessPortal(userCredentials).subscribe(
+    this.authService.authenticateUser(userCredentials).subscribe(
       response => {
         this.msgService.add({ severity: 'success', summary: 'Successo', detail: 'Usuário autenticado!' });
+        this.userService.setUserDataOnLocalStorage(response.data!);
         this.router.navigate(['home']);
       },
       error => {
@@ -50,4 +53,5 @@ export class LoginComponent {
   // setAuthenticatedUserData(){
 
   // }
+  
 }

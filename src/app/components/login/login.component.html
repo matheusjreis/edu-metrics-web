@@ -1,8 +1,8 @@
-<form [formGroup]="loginForm" (ngSubmit)="loginUser()">
-  <p-card [style]="{ width: '360px' }">
+<form [formGroup]="loginForm" (ngSubmit)="loginUser()" class="login-form">
+  <p-card [style]="{ width: '360px' }" class="module-card">
     <header id="cpuHeader">
       <img alt="Card" src="../../../assets/images/cpu-logo.png" width="100px"/>
-      <p>Login</p>
+      <p>SimulateOS</p>
     </header>
     <div class="field">
       <label for="email">Email</label>

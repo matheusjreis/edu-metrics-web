@@ -11,8 +11,28 @@ export class UserService {
   constructor(private http: HttpClient) { }  
 
   registerUser(userDetails: User) {
-    console.log(userDetails);
     return this.http.post(`${this.baseUrl}`, userDetails);
+  }
+
+  setUserDataOnLocalStorage(userDetails: User){
+    localStorage.setItem("userInformations", JSON.stringify(userDetails));
+  }
+
+  cleanUserDataOnLocalStorage(){
+    localStorage.removeItem("userInformations");
+  }
+
+  getUserInformationOnLocalStorage(){
+    let cachedUser: string | null = localStorage.getItem("userInformations");
+
+    if(cachedUser != null){
+      let userInformations: User = JSON.parse(cachedUser);
+
+      console.log(userInformations)
+      return userInformations;
+    } else {
+      return null;
+    }
   }
 }
 

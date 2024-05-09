@@ -16,6 +16,13 @@
     order: 2; 
 }
 
+.login-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+}
+
 hml, body {
    background-color: #609af8;  
 }

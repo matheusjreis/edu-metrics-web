@@ -1,8 +1,8 @@
 export interface User {
-    name: string;
-    email: string;
-    password: string;
-    registrationCollegeCode: string;
+    Name: string;
+    Email: string;
+    Password: string;
+    RegistrationCollegeCode: string;
 }
 
 export interface UserCredentials {

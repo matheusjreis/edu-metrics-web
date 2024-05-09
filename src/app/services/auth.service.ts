@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User, UserCredentials } from '../interfaces/auth';
+import { EduMetricsApiReponse } from '../interfaces/response';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -16,7 +17,7 @@ export class AuthService {
     return this.http.get<User[]>(`${this.baseUrl}/users?email=${email}`);
   }
 
-  canUserAcessPortal(userCredentials: UserCredentials){
-    return this.http.post(`${this.baseUrl}/authenticate`, userCredentials);
+  authenticateUser(userCredentials: UserCredentials){
+    return this.http.post<EduMetricsApiReponse>(`${this.baseUrl}/authenticate`, userCredentials);
   }
 }
