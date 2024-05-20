@@ -1,4 +1,4 @@
-<form [formGroup]="registerForm" (ngSubmit)="submitDetails()">
+<form [formGroup]="registerForm" (ngSubmit)="submitDetails()" class="register-form">
   <p-card [style]="{ width: '360px' }">
     <header id="cpuHeader">
       <img alt="Card" src="../../../assets/images/cpu-logo.png" width="100px"/>
@@ -41,22 +41,70 @@
       </small>
     </div>
     <div class="field">
-      <label for="registrationCollegeCode">Matrícula</label>
+      <label for="country">País</label>
       <input
         type="text"
         pInputText
         class="w-full"
-        formControlName="registrationCollegeCode"
-        name="registrationCollegeCode"
+        formControlName="country"
+        name="country"
+        placeholder="Digite o seu país"
+      />
+      <small
+        *ngIf="country.invalid && (country.dirty || country.touched)"
+        class="block p-error"
+      >
+        <div *ngIf="country.errors?.['required']">País é obrigatório.</div>
+      </small>
+    </div>
+    <div class="field">
+      <label for="city">Cidade</label>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        formControlName="city"
+        name="city"
         placeholder="Digite a sua matrícula"
       />
       <small
-        *ngIf="registrationCollegeCode.invalid && (registrationCollegeCode.dirty || registrationCollegeCode.touched)"
+        *ngIf="city.invalid && (city.dirty || city.touched)"
         class="block p-error"
       >
-        <div *ngIf="registrationCollegeCode.errors?.['required']">Matrícula é obrigatória.</div>
+        <div *ngIf="city.errors?.['required']">Cidade é obrigatória.</div>
       </small>
-    </div>
+    </div>    
+    <div class="field">
+      <label for="state">Estado</label>
+      <input
+        type="text"
+        pInputText
+        class="w-full"
+        formControlName="state"
+        name="state"
+        placeholder="Digite a sua matrícula"
+      />
+      <small
+        *ngIf="state.invalid && (state.dirty || state.touched)"
+        class="block p-error"
+      >
+        <div *ngIf="state.errors?.['required']">Estado é obrigatório.</div>
+      </small>
+    </div>    
+    
+    <!-- <div class="field">
+      <p-dropdown 
+      [options]="educationLevels" 
+      optionLabel="name" 
+      placeholder="Selecione a formação" />
+      <small
+        *ngIf="education.invalid && (education.dirty || education.touched)"
+        class="block p-error"
+      >
+        <div *ngIf="education.errors?.['required']">Estado é obrigatório.</div>
+      </small>
+    </div>   -->
+   
     <div class="field">
       <label for="password">Senha</label>
       <input

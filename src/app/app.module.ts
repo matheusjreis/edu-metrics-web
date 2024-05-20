@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageService } from 'primeng/api';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { MessageService } from 'primeng/api';
     ButtonModule,
     HttpClientModule,
     ToastModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DropdownModule
   ],
   providers: [MessageService],
   bootstrap: [AppComponent]

@@ -15,3 +15,10 @@
     margin-bottom: 3rem;
     order: 2; 
 }
+
+.register-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+}
