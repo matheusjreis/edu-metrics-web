@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserCredentials } from 'src/app/interfaces/auth';
 import { UserService } from 'src/app/shared/services/user.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 // import { NotifierService } from 'angular-notifier';
 
 @Component({
@@ -22,13 +24,13 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
     // private msgService: MessageService
   ) { }
 
-  get email() {
-    return this.loginForm.controls['email'];
-  }
+  get email() { return this.loginForm.controls['email']; }
+
   get password() { return this.loginForm.controls['password']; }
 
   loginUser() {
@@ -41,12 +43,13 @@ export class LoginComponent implements OnInit {
 
     this.authService.authenticateUser(userCredentials).subscribe(
       response => {
+        this.snackBar.open('Não se esqueça de clicar em logout ao terminar a sessão!');
         // this.msgService.add({ severity: 'success', summary: 'Successo', detail: '[Nome], Não se esqueça de clicar em logout ao terminar a sessão!' });
         localStorage.setItem('userToken', response.data!);
-        this.router.navigate(['home']);
+        this.router.navigate(['cpu-manager']);
       },
       error => {
-        // this.msgService.add({ severity: 'error', summary: 'Erro', detail: error.error.message });
+        this.snackBar.open('Usuário não autorizado!', 'Fechar');
       }
     )
   }
