@@ -43,10 +43,9 @@ export class LoginComponent implements OnInit {
 
     this.authService.authenticateUser(userCredentials).subscribe(
       response => {
-        this.snackBar.open('Não se esqueça de clicar em logout ao terminar a sessão!');
-        // this.msgService.add({ severity: 'success', summary: 'Successo', detail: '[Nome], Não se esqueça de clicar em logout ao terminar a sessão!' });
+        this.snackBar.open('Não se esqueça de clicar em logout ao terminar a sessão!', 'OK');
         localStorage.setItem('userToken', response.data!);
-        this.router.navigate(['cpu-manager']);
+        this.router.navigate(['home']);
       },
       error => {
         this.snackBar.open('Usuário não autorizado!', 'Fechar');
