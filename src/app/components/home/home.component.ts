@@ -2,8 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SystemModule } from 'src/app/interfaces/systemModule';
 import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/interfaces/auth';
-
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-home',
   template: `<body class="module-page">
@@ -35,11 +36,44 @@ export class HomeComponent implements OnInit {
   userInformations: User | null;
 
   constructor(private router: Router,
-              private userService: UserService) { 
+              private userService: UserService,
+              private authService: AuthService,
+              private msgService: MessageService
+            ) { 
                 this.userInformations = null;
   }
 
   ngOnInit(): void {
+    let userToken : string | null = localStorage.getItem('userToken');
+    
+    if(userToken == null){
+      this.router.navigate(['login']);
+      return;
+    }
+
+    this.authService.isSessionActivated().subscribe(
+      response => {
+        if(response.data){
+          this.userService.getLoggedUser().subscribe(
+            response => {
+              if(response.success){
+                this.userService.setUserDataOnLocalStorage(response.data!);
+              }
+            },
+            error => {
+              this.router.navigate(['login']);
+              this.msgService.add({ severity: 'error', summary: 'Erro', detail: error.error.message });
+            }
+          )
+        }else{
+          this.router.navigate(['login']);
+        }
+      },
+      error => {
+        this.router.navigate(['login']);
+        this.msgService.add({ severity: 'error', summary: 'Erro', detail: error.error.message });
+      }
+    )
     this.userInformations =  this.userService.getUserInformationOnLocalStorage();
   }
 

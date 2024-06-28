@@ -40,8 +40,8 @@ export class LoginComponent {
 
     this.authService.authenticateUser(userCredentials).subscribe(
       response => {
-        this.msgService.add({ severity: 'success', summary: 'Successo', detail: 'Usuário autenticado!' });
-        this.userService.setUserDataOnLocalStorage(response.data!);
+        this.msgService.add({ severity: 'success', summary: 'Successo', detail: '[Nome], Não se esqueça de clicar em logout ao terminar a sessão!' });
+        localStorage.setItem('userToken', response.data!);
         this.router.navigate(['home']);
       },
       error => {
@@ -50,8 +50,7 @@ export class LoginComponent {
     )
   }
 
-  // setAuthenticatedUserData(){
-
-  // }
-  
+  ngOnInit(): void {
+   localStorage.clear();
+  }
 }
