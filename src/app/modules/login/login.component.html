@@ -1,32 +1,44 @@
-<div class="login-container">
-    <mat-card class="login-card">
+<div class="login-wrapper">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span class="spacer"></span>
+      <a mat-button routerLink="/register">Registrar</a>
+      <a mat-button routerLink="/login">Login</a>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <div class="login-box">
+    <mat-card class="box">
       <mat-card-header>
-        <mat-card-title>Login</mat-card-title>
+        <mat-card-title>
+          <img class="app-img" src="/assets/images/cpu-logo.png" width="90rem">
+          <div class="app-name">SimulateOS</div>
+        </mat-card-title>
       </mat-card-header>
-      <mat-card-content>
-        <form (ngSubmit)="onSubmit()">
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email" type="email" required>
-            <mat-error>
-              Email is required
-            </mat-error>
-            <mat-error >
-              Please enter a valid email address
-            </mat-error>
+      <form [formGroup]="loginForm" (ngSubmit)="loginUser()" class="login-form">
+        <mat-card-content>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Email" name="email" formControlName="email" type="email">
+            <small
+              *ngIf="email.invalid && (email.dirty || email.touched)"
+              class="block p-error"
+            >
+            </small>
           </mat-form-field>
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Password</mat-label>
-            <input matInput formControlName="password" type="password" required>
-            <mat-error>
-              Password is required
-            </mat-error>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Senha" type="password" name="password" formControlName="password">
+            <small
+              *ngIf="password.invalid && (password.dirty || password.touched)"
+              class="block p-error"
+            >
+            </small>
           </mat-form-field>
-          <div class="login-actions">
-            <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Login</button>
-          </div>
-        </form>
-      </mat-card-content>
+        </mat-card-content>
+        <button mat-stroked-button color="accent" 
+          class="btn-block" 
+          type="submit"              
+        >Entrar
+        </button>
+      </form>
     </mat-card>
   </div>
-  
+</div>

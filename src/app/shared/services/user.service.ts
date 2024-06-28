@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { User } from '../interfaces/auth';
-import { EduMetricsApiReponse } from '../interfaces/response';
+import { User } from '../../interfaces/auth';
+import { EduMetricsApiReponse } from '../../interfaces/response';
 import { HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'

@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ShellComponent } from './shell.component';
 
+
 const routes: Routes = [
   {
     path: '',
-    component: ShellComponent,
     children: [
       {
         path: '',
@@ -14,6 +14,7 @@ const routes: Routes = [
       },
       {
         path: 'process-manager',
+        component: ShellComponent,
         loadChildren: () =>
           import('../../modules/process-manager/process-manager.module').then(
             (m) => m.ProcessManagerModule
@@ -21,6 +22,7 @@ const routes: Routes = [
       },
       {
         path: 'cpu-manager',
+        component: ShellComponent,
         loadChildren: () =>
           import('../../modules/cpu-manager/cpu-manager.module').then(
             (m) => m.CpuManagerModule
@@ -30,9 +32,9 @@ const routes: Routes = [
         path: 'login',
         loadChildren: () =>
           import('../../modules/login/login.module').then(
-            (m) => m.CpuManagerModule
+            (m) => m.LoginModule
           ),
-      }
+      },
     ],
   },
 ];
