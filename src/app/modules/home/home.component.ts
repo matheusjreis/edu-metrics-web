@@ -16,10 +16,22 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 
 export class HomeComponent implements OnInit {
   constructor(
-    private userService: UserService
-    // private msgService: MessageService
+    private userService: UserService,
+    private authService: AuthService,
+    private router: Router,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
+    this.authService.isSessionActivated().subscribe(
+      response => {
+        if(!response.data){
+          this.snackBar.open('Sessão inválida!', 'Fechar');
+          this.router.navigate(['login']);
+        }
+      },error => {
+        this.router.navigate(['login']);
+      }
+    )
   }
 }

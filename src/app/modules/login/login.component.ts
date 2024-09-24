@@ -30,43 +30,25 @@ export class LoginComponent implements OnInit {
     // private msgService: MessageService
   ) { }
 
-  
-
-
   get email() { return this.loginForm.controls['email']; }
 
   get password() { return this.loginForm.controls['password']; }
 
   loginUser() {
-    this.userService.getUserIP().subscribe(
-      response => {
-        const { email, password } = this.loginForm.value;
-        const userIp: UserIp = response;
-        const userCredentials = <UserCredentials>({
-          userName: email,
-          userPassword: password
-        });
-
-        this.authService.authenticateUser(userCredentials).subscribe(
-          response => {
-            this.snackBar.open('Não se esqueça de clicar em logout ao terminar a sessão!', 'OK');
-            localStorage.setItem('userToken', response.data!);
-            this.router.navigate(['home']);
-          },
-          error => {
-            this.snackBar.open('Usuário não autorizado!', 'Fechar');
-          }
-        )
-        
-      },
-      error => {
-        this.snackBar.open('Não foi possível buscar IP!', 'Fechar');
-      }
-    );    
+    const { email, password } = this.loginForm.value;
+    const userCredentials = <UserCredentials>({
+      userName: email,
+      userPassword: password
+    });
+    if(this.authService.authenticateUser(userCredentials)){
+      this.snackBar.open('Não se esqueça de clicar em logout ao terminar a sessão!', 'OK');
+      this.router.navigate(['home']);
+    }else{
+      this.snackBar.open('Usuário não autorizado!', 'Fechar');
+    }   
   }
 
   ngOnInit(): void {
-    console.log('whats going on?')
    localStorage.clear();
   }
 }
