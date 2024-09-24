@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserCredentials } from 'src/app/interfaces/auth';
 import { UserService } from 'src/app/shared/services/user.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import { UserIp } from 'src/app/interfaces/userIp';
 
 // import { NotifierService } from 'angular-notifier';
 
@@ -29,31 +30,43 @@ export class LoginComponent implements OnInit {
     // private msgService: MessageService
   ) { }
 
+  
+
+
   get email() { return this.loginForm.controls['email']; }
 
   get password() { return this.loginForm.controls['password']; }
 
   loginUser() {
-    const { email, password } = this.loginForm.value;
-    
-    const userCredentials = <UserCredentials>({
-      userName: email,
-      userPassword: password
-   });
-
-    this.authService.authenticateUser(userCredentials).subscribe(
+    this.userService.getUserIP().subscribe(
       response => {
-        this.snackBar.open('Não se esqueça de clicar em logout ao terminar a sessão!', 'OK');
-        localStorage.setItem('userToken', response.data!);
-        this.router.navigate(['home']);
+        const { email, password } = this.loginForm.value;
+        const userIp: UserIp = response;
+        const userCredentials = <UserCredentials>({
+          userName: email,
+          userPassword: password
+        });
+
+        this.authService.authenticateUser(userCredentials).subscribe(
+          response => {
+            this.snackBar.open('Não se esqueça de clicar em logout ao terminar a sessão!', 'OK');
+            localStorage.setItem('userToken', response.data!);
+            this.router.navigate(['home']);
+          },
+          error => {
+            this.snackBar.open('Usuário não autorizado!', 'Fechar');
+          }
+        )
+        
       },
       error => {
-        this.snackBar.open('Usuário não autorizado!', 'Fechar');
+        this.snackBar.open('Não foi possível buscar IP!', 'Fechar');
       }
-    )
+    );    
   }
 
   ngOnInit(): void {
+    console.log('whats going on?')
    localStorage.clear();
   }
 }

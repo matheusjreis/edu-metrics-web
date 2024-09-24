@@ -15,6 +15,11 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 
 export class HomeComponent implements OnInit {
+  constructor(
+    private userService: UserService
+    // private msgService: MessageService
+  ) { }
+
   ngOnInit(): void {
   }
 }

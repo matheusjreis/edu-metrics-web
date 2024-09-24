@@ -108,8 +108,6 @@ export class ProcessesState {
             }))
             .reverse();
 
-        // console.log(execution);
-
         return {
             execution,
             waiting,
