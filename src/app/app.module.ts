@@ -1,41 +1,30 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { HomeComponent } from './components/home/home.component';
-import { CardModule } from 'primeng/card';
-import { InputTextModule } from 'primeng/inputtext';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { HttpClientModule } from '@angular/common/http';
-import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MessageService } from 'primeng/api';
-import { DropdownModule } from 'primeng/dropdown';
+import { MatNativeDateModule } from '@angular/material/core';
+import { NgxsModule } from '@ngxs/store';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { ProcessesState } from './shared/stores/processes/processes.state';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    HomeComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    CardModule,
-    InputTextModule,
-    ReactiveFormsModule,
-    ButtonModule,
-    HttpClientModule,
-    ToastModule,
     BrowserAnimationsModule,
-    DropdownModule
+    HttpClientModule,
+    MatNativeDateModule,
+    NgxsStoragePluginModule.forRoot({
+      key: 'processes'
+    }),
+    NgxsModule.forRoot([ProcessesState]),
+    NgxsLoggerPluginModule.forRoot(),
   ],
-  providers: [MessageService],
-  bootstrap: [AppComponent]
+  providers: [],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

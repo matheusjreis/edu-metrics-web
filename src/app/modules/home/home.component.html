@@ -1,0 +1,23 @@
+<div class="home-wrapper">
+  <mat-toolbar color="primary">
+     <mat-toolbar-row>
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" mat-button (click)="drawer.toggle()">
+           <mat-icon>menu</mat-icon>
+        </button>
+        <span class="example-spacer"></span>
+        <span class="spacer"></span>
+        <a mat-button routerLink="/login">Sair</a>
+     </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-drawer-container class="example-container" autosize>
+     <mat-drawer #drawer class="example-sidenav" mode="side">
+      <div class="module-options">
+          <a mat-button class="listing-heading-item" routerLink="/process-manager">Escalonador de Processos</a>
+          <a mat-button class="listing-heading-item" href="/cpu-manager" >Gerenciador de memória</a>
+          <a mat-button class="listing-heading-item" href="https://www.facom.ufu.br/~thiago/filesystem" >Sistemas de arquivos</a>
+          <a mat-button class="listing-heading-item" href="https://www.facom.ufu.br/~thiago/deadlock/" >Threads</a>
+      </div>
+      
+     </mat-drawer>
+  </mat-drawer-container>
+</div>
